@@ -121,7 +121,7 @@ def on_message(msg):
 				cur.execute("INSERT INTO refs(user_id, ref_count, wallet) VALUES (?, ?, ?)", (msg.chat.id, 0, "None"))
 				db.commit()
 			
-			bot.send_message(msg.chat.id, f"https://t.me/f_social_bot/?start={msg.chat.id}")
+			bot.send_message(msg.chat.id, f"https://t.me/notkittycoin_bot/?start={msg.chat.id}")
 
 		elif msg.text == "Profile":
 			user = get_user(msg.chat.id)

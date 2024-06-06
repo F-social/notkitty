@@ -11,7 +11,7 @@ https://t.me/notkittycoin
 """
 
 start_text = """Hi👋
-Get $100 NOTKITTY for each by inviting friends.
+Get 100 $NOTKITTY for each by inviting friends.
 
 Bot will be available after 
 you subscribe to our group: 

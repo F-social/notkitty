@@ -87,7 +87,7 @@ def check_sub(user_id):
 
 @bot.message_handler(commands=['start'])
 def start(msg):
-	if bot.get_chat(channel_id).id == msg.chat.id:
+	if channel_id == msg.chat.id:
 		return None
 	else:	
 		args = msg.text.split()
@@ -97,21 +97,27 @@ def start(msg):
 			except:
 				print("Invalid Referral")
 			else:
-				user = get_user(ref_id)
-				if not(user is None):
-					cur = db.cursor()
-					cur.execute(f"UPDATE refs SET ref_count={user[2]+1} WHERE user_id={ref_id}")
-					db.commit()
-					cur.close()
-				else:
-					print("Not Found Referral")
+				if check_sub(msg.chat.id):
+					user = get_user(ref_id)
+					if not(user is None):
+
+						cur = db.cursor()
+						us = cur.execute(f"SELECT * FROM refs WHERE user_id={msg.chat.id}").fetchone()
+
+						if us is None:
+							cur.execute(f"UPDATE refs SET ref_count={user[2]+1} WHERE user_id={ref_id}")
+							db.commit()
+
+						cur.close()
+					else:
+						print("Not Found Referral")
 
 		bot.send_message(msg.chat.id, start_text, reply_markup=main_menu)
 
 
 @bot.message_handler(content_types=['text'])
 def on_message(msg):
-	if not check_sub(msg.chat.id) or bot.get_chat(channel_id).id == msg.chat.id:
+	if channel_id == msg.chat.id or not check_sub(msg.chat.id):
 		return None
 	else:
 		cur = db.cursor()
@@ -139,11 +145,11 @@ def on_message(msg):
 
 			profile = f"""Your referrals: {user[2]} 👤
 
-	Your NOTKITTY: {user[2] * curs} 🐱
+Your NOTKITTY: {user[2] * curs} 🐱
 
-	Your place on the leaderboard: {count} 🏅
+Your place on the leaderboard: {count} 🏅
 
-	Your wallet: {user[3]}"""
+Your wallet: {user[3]}"""
 
 			bot.send_message(msg.chat.id, profile, reply_markup=prof_menu)
 

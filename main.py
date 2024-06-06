@@ -153,7 +153,7 @@ def on_message(msg):
 
 			count = 1
 			for user in top:
-				board += f"{count}. {bot.get_chat(user[1]).first_name}\n"
+				board += f"{count}. {bot.get_chat(user[1]).first_name} - {user[2]}\n"
 				count += 1
 
 			bot.send_message(msg.chat.id, board)

@@ -1,3 +1,4 @@
+from requests.exceptions import ReadTimeout
 from telebot import TeleBot, types
 from time import sleep
 from conf import *
@@ -181,9 +182,4 @@ Enter your SOL address:""")
 		bot.register_next_step_handler(msg, change_func)
 
 
-while True:
-	try:
-		bot.polling()
-	except Exception as e:
-		print(e)
-		sleep(10)
+bot.infinity_polling(timeout=10, long_polling_timeout=5)

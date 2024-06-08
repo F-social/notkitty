@@ -130,7 +130,7 @@ def on_message(msg):
 
 		user = get_user(msg.chat.id)
 		if user is None:
-			cur.execute("INSERT INTO refs(user_id, ref_count, wallet, balance) VALUES (?, ?, ?)", (msg.chat.id, 0, "None", 0))
+			cur.execute("INSERT INTO refs(user_id, ref_count, wallet, balance) VALUES (?, ?, ?, ?)", (msg.chat.id, 0, "None", 0))
 			db.commit()
 
 		if msg.text == "Get link":
@@ -180,10 +180,10 @@ def on_call(call):
 Enter your SOL address:""")
 		bot.register_next_step_handler(msg, change_func)
 
-
-while True:
-	try:
-		bot.polling()
-	except Exception as e:
-		print(e)
-		sleep(10)
+bot.polling()
+# while True:
+# 	try:
+# 		bot.polling()
+# 	except Exception as e:
+# 		print(e)
+# 		sleep(10)

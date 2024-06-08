@@ -180,10 +180,10 @@ def on_call(call):
 Enter your SOL address:""")
 		bot.register_next_step_handler(msg, change_func)
 
-bot.polling()
-# while True:
-# 	try:
-# 		bot.polling()
-# 	except Exception as e:
-# 		print(e)
-# 		sleep(10)
+
+while True:
+	try:
+		bot.polling()
+	except Exception as e:
+		print(e)
+		sleep(10)
